@@ -1,0 +1,170 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    line-height:1.6;
+}
+
+/* Header */
+
+header{
+    background:#333;
+    color:white;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 80px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav ul li{
+    margin-left:25px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:80px;
+    background:#555;
+}
+
+.hero-text h1{
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.hero-text p{
+    font-size:22px;
+}
+
+.hero-image img{
+    width:380px;
+}
+
+/* About */
+
+.about{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:60px;
+    padding:80px;
+}
+
+.about img{
+    width:320px;
+}
+
+.about-text{
+    max-width:600px;
+}
+
+.about h2{
+    margin-bottom:20px;
+}
+
+/* Skills */
+
+#skills{
+    padding:80px;
+    text-align:center;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:40px;
+}
+
+.card{
+    background:#0b5ed7;
+    color:white;
+    padding:25px 40px;
+    border-radius:8px;
+}
+
+/* Projects */
+
+#projects{
+    padding:80px;
+    text-align:center;
+}
+
+.project-container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:40px;
+}
+
+.project{
+    width:300px;
+    border:1px solid #ddd;
+    padding:20px;
+}
+
+.project img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+/* Resume */
+
+#resume{
+    padding:80px;
+    text-align:center;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    background:#0b5ed7;
+    color:white;
+    padding:12px 25px;
+    text-decoration:none;
+}
+
+/* Contact */
+
+#contact{
+    padding:80px;
+    text-align:center;
+}
+
+#contact p{
+    margin-top:10px;
+}
+
+/* Footer */
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
