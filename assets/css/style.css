@@ -127,23 +127,76 @@ nav ul li a{
 
 /* Skills */
 
-#skills{
-    padding:80px;
-    text-align:center;
+#skills {
+    padding: 80px;
+    text-align: center;
+    background: #f0f2f5;
 }
 
-.cards{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    margin-top:40px;
+#skills h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
-.card{
-    background:#0b5ed7;
-    color:white;
-    padding:25px 40px;
-    border-radius:8px;
+.skills-subtitle {
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+.skill-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.skill-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    width: 200px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    text-align: left;
+}
+
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.skill-icon {
+    font-size: 22px;
+}
+
+.skill-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #222;
+}
+
+.skill-bar {
+    background: #e8e8e8;
+    border-radius: 999px;
+    height: 7px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #00bfff, #0077cc);
+    animation: fillBar 1.2s ease forwards;
+}
+
+@keyframes fillBar {
+    from { width: 0; }
 }
 
 /* Projects */
