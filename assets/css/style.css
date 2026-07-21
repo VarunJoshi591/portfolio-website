@@ -195,8 +195,20 @@ nav ul li a{
     text-align:center;
 }
 
+#contact h2 {
+    margin-bottom: 20px;
+}
+
 #contact p{
     margin-top:10px;
+    font-size: 18px;
+}
+
+.social-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 /* Footer */
