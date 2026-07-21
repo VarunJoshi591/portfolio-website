@@ -1,124 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<header>
-    <nav>
-        <div class="logo">My Portfolio</div>
+    <header>
+        <nav>
+            <div class="logo">My Portfolio</div>
 
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#resume">Resume</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
 
-    <section id="home" class="hero">
-        <div class="hero-text">
-            <h1>Varun Joshi</h1>
-            <p>M.Sc. Computer Science Student | Aspiring Full-Stack Developer</p>
-        </div>
+        <section id="home" class="hero">
+            <div class="hero-text">
+                <h1>Varun Joshi</h1>
+                <p>M.Sc. Computer Science Student | Aspiring Full-Stack Developer</p>
+            </div>
 
-        <div class="hero-image">
+            <div class="hero-image">
+                <img src="assets/images/profile.jpg" alt="Profile">
+            </div>
+        </section>
+    </header>
+
+    <section id="about" class="about">
+        <div class="about-image">
             <img src="assets/images/profile.jpg" alt="Profile">
         </div>
+
+        <div class="about-text">
+            <h2>About Me</h2>
+
+            <p>
+                Hello! I'm Varun Joshi, a First Year Master of Computer Science (MCS)
+                student from Maharashtra, India. I am passionate about web development,
+                software development, and problem solving.
+
+                Currently, I am learning HTML, CSS, JavaScript, React, Data Structures &
+                Algorithms, and Full-Stack Development. My goal is to become a skilled
+                software engineer.
+
+                I enjoy building real-world projects that improve my programming skills and
+                help me gain practical experience.
+            </p>
+            
+            <div class="about-info-cards">
+                <div class="info-card">
+                    <h3>Education</h3>
+                    <p>B.S.c (Computer Science)</p>
+                    <br>
+                    <p>CGPA: 7.8</p>
+                </div>
+
+                <div class="info-card">
+                    <h3 class="quick-info-title">Quick Info</h3>
+                    <p><strong>Email:</strong><br>joshivarun089@gmail.com</p>
+                    <br>
+                    <p><strong>Location:</strong> Nashik, Maharashtra, India</p>
+                    <hr>
+                    <p><strong>Projects:</strong> 5+</p>
+                    <br>
+                    <p><strong>CGPA:</strong> 7.8</p>
+                    <br>
+                    <p><strong>Technical Skills:</strong> 7+</p>
+                </div>
+            </div>
+        </div>
     </section>
-</header>
 
-<section id="about" class="about">
-    <div class="about-image">
-        <img src="assets/images/profile.jpg" alt="Profile">
-    </div>
+    <section id="skills">
+        <h2>Skills</h2>
 
-    <div class="about-text">
-        <h2>About Me</h2>
+        <div class="cards">
 
-<p>
-Hello! I'm Varun Joshi, a First Year Master of Computer Science (MCS)
-student from Maharashtra, India. I am passionate about web development,
-software development, and problem solving.
+            <div class="card">HTML</div>
+            <div class="card">CSS</div>
+            <div class="card">JavaScript</div>
+            <div class="card">Git & GitHub</div>
+            <div class="card">React</div>
+            <div class="card">C Programming</div>
+            <div class="card">C++ Programming</div>
 
-Currently, I am learning HTML, CSS, JavaScript, React, Data Structures &
-Algorithms, and Full-Stack Development. My goal is to become a skilled
-software engineer.
-
-I enjoy building real-world projects that improve my programming skills and
-help me gain practical experience.
-</p>
-    </div>
-</section>
-
-<section id="skills">
-    <h2>Skills</h2>
-
-    <div class="cards">
-
-        <div class="card">HTML</div>
-        <div class="card">CSS</div>
-        <div class="card">JavaScript</div>
-        <div class="card">Responsive Design</div>
-        <div class="card">Git & GitHub</div>
-        <div class="card">React</div>
-        <div class="card">C Programming</div>
-        <div class="card">C++ Programming</div>
-        <div class="card">Python Programming</div>
-
-    </div>
-</section>
-
-<section id="projects">
-    <h2>Projects</h2>
-
-    <div class="project-container">
-
-        <div class="project">
-            <img src="assets/images/project1.jpg">
-            <h3>Portfolio Website</h3>
-            <p>Personal Portfolio using HTML & CSS.</p>
         </div>
+    </section>
 
-        <div class="project">
-            <img src="assets/images/project2.jpg">
-            <h3>Landing Page</h3>
-            <p>Responsive Landing Page Design.</p>
+    <section id="projects">
+        <h2>Projects</h2>
+
+        <div class="project-container">
+
+            <div class="project">
+                <img src="assets/images/project1.jpg">
+                <h3>Portfolio Website</h3>
+                <p>Personal Portfolio using HTML & CSS.</p>
+            </div>
+
+            <div class="project">
+                <img src="assets/images/project2.jpg">
+                <h3>Landing Page</h3>
+                <p>Responsive Landing Page Design.</p>
+            </div>
+
+            <div class="project">
+                <img src="assets/images/project3.jpg">
+                <h3>Calculator</h3>
+                <p>Simple Calculator using HTML & CSS.</p>
+            </div>
+
         </div>
+    </section>
 
-        <div class="project">
-            <img src="assets/images/project3.jpg">
-            <h3>Calculator</h3>
-            <p>Simple Calculator using HTML & CSS.</p>
-        </div>
+    <section id="resume">
+        <h2>Resume</h2>
 
-    </div>
-</section>
+        <a href="assets/resume/Varun_Joshi_Resume.pdf" download class="btn">
+            Download Resume
+        </a>
+    </section>
 
-<section id="resume">
-    <h2>Resume</h2>
+    <section id="contact">
+        <h2>Contact</h2>
 
-    <a href="assets/resume/Varun_Joshi_Resume.pdf" download class="btn">
-        Download Resume
-    </a>
-</section>
+        <p>Email : joshivarun089@gmail.com</p>
+        <p>Phone : +91 9975486981</p>
+    </section>
 
-<section id="contact">
-    <h2>Contact</h2>
-
-    <p>Email : joshivarun089@gmail.com</p>
-    <p>Phone : +91 9975486981</p>
-</section>
-
-<footer>
-    <p>© 2026 Varun Joshi. All Rights Reserved.</p>
-</footer>
+    <footer>
+        <p>© 2026 Varun Joshi. All Rights Reserved.</p>
+    </footer>
 
 </body>
+
 </html>
