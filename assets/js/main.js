@@ -71,25 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- 3. Skill Progress Bar Fill Animation --- */
-    const skillBars = document.querySelectorAll('.progress-bar-fill');
 
-    const animateSkillBars = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const bar = entry.target;
-                const progress = bar.getAttribute('data-progress') || '80%';
-                bar.style.width = progress;
-                observer.unobserve(bar);
-            }
-        });
-    };
-
-    const skillObserver = new IntersectionObserver(animateSkillBars, {
-        threshold: 0.2
-    });
-
-    skillBars.forEach(bar => skillObserver.observe(bar));
 
     /* --- 4. Back To Top Scroll --- */
     if (backToTopBtn) {
