@@ -84,9 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --- 5. Contact Form — Backend Integration --- */
-    // ⚠️  Change this to your deployed backend URL in production
-    //      e.g. 'https://portfolio-contact-backend.onrender.com/api/contact'
-    const CONTACT_API_URL = 'http://localhost:5000/api/contact';
+    // Dynamically choose API endpoint:
+    // Uses http://localhost:5000/api/contact when running locally,
+    // and relative '/api/contact' when deployed on Vercel / production.
+    const CONTACT_API_URL =
+        window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000/api/contact'
+            : '/api/contact';
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
