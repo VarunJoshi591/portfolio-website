@@ -1,0 +1,29 @@
+{
+  "name": "portfolio-contact-backend",
+  "version": "1.0.0",
+  "description": "Production-ready backend for Varun Joshi's portfolio contact form. Built with Express.js, Nodemailer, and Gmail SMTP.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "contact-form",
+    "nodemailer",
+    "express",
+    "backend"
+  ],
+  "author": "Varun Joshi",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.10.0"
+  }
+}

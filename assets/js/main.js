@@ -83,31 +83,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- 5. Contact Form Interactive Handler --- */
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const nameInput = document.getElementById('formName');
-            const emailInput = document.getElementById('formEmail');
-            const messageInput = document.getElementById('formMessage');
+    /* --- 5. Contact Form — Backend Integration --- */
+    // ⚠️  Change this to your deployed backend URL in production
+    //      e.g. 'https://portfolio-contact-backend.onrender.com/api/contact'
+    const CONTACT_API_URL = 'http://localhost:5000/api/contact';
 
-            if (nameInput.value.trim() === '' || emailInput.value.trim() === '') {
-                alert('Please fill in your name and email address.');
-                return;
-            }
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
-            
+
+            // --- Gather form data ---
+            const payload = {
+                name: document.getElementById('formName').value.trim(),
+                email: document.getElementById('formEmail').value.trim(),
+                subject: document.getElementById('formSubject').value.trim(),
+                message: document.getElementById('formMessage').value.trim(),
+            };
+
+            // --- Quick client-side guard ---
+            if (!payload.name || !payload.email || !payload.subject || !payload.message) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // --- Show loading state ---
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-            setTimeout(() => {
-                alert(`Thank you, ${nameInput.value}! Your message has been sent successfully. I will get back to you soon.`);
-                contactForm.reset();
+            try {
+                const response = await fetch(CONTACT_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // ✅ Success
+                    alert(`✅ Thank you, ${payload.name}! Your message has been sent successfully. I will get back to you soon.`);
+                    contactForm.reset();
+                } else if (response.status === 422 && data.errors) {
+                    // ⚠️ Validation errors — show the first one
+                    const messages = data.errors.map(err => `• ${err.message}`).join('\n');
+                    alert(`⚠️ Validation Error:\n${messages}`);
+                } else if (response.status === 429) {
+                    // 🚫 Rate limited
+                    alert('🚫 Too many requests. Please wait 15 minutes and try again.');
+                } else {
+                    // ❌ Generic server error
+                    alert('❌ ' + (data.message || 'Something went wrong. Please try again.'));
+                }
+            } catch (error) {
+                // 🌐 Network / connection error
+                console.error('Contact form error:', error);
+                alert('❌ Network error. Could not reach the server. Please check your connection and try again.');
+            } finally {
+                // Always re-enable the button
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalText;
-            }, 1200);
+            }
         });
     }
 });
