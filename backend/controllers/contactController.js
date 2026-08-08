@@ -25,6 +25,15 @@ const sendContactEmail = async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
 
+    // Verify environment variables are present
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('❌ EMAIL_USER or EMAIL_PASS environment variables are missing!');
+      return res.status(500).json({
+        success: false,
+        message: 'Server email credentials are not configured. Set EMAIL_USER and EMAIL_PASS in your environment.',
+      });
+    }
+
     // ----------------------------------------------------------
     // Capture request metadata for logging & email template
     // ----------------------------------------------------------

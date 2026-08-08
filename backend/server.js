@@ -15,7 +15,8 @@
 // ------------------------------------------------------------------
 // 1. Load environment variables FIRST (before any other import)
 // ------------------------------------------------------------------
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 // ------------------------------------------------------------------
 // 2. Core dependencies

@@ -13,20 +13,17 @@ const nodemailer = require('nodemailer');
  * Gmail SMTP transporter.
  *
  * Configuration notes:
- * - `service: 'gmail'` is a Nodemailer shortcut that sets
- *    host/port/secure automatically for Gmail SMTP.
+ * - Explicit host/port/secure settings work reliably on both the
+ *    standalone Express server and Vercel serverless functions.
  * - `auth.pass` must be a Gmail App Password, NOT the account
  *    password.  See README.md for setup instructions.
- * - `pool: true` keeps a connection pool open so that multiple
- *    emails can be sent without re-establishing TLS each time.
- * - `maxConnections` and `maxMessages` guard against accidental
- *    flooding of the Gmail API.
+ * - Do NOT enable `pool: true` — connection pooling causes SMTP
+ *    hangs and timeouts in short-lived serverless invocations.
  */
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  pool: true,
-  maxConnections: 3,
-  maxMessages: 100,
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: Number(process.env.SMTP_PORT) || 465,
+  secure: process.env.SMTP_SECURE !== 'false',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
