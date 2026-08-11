@@ -1,152 +1,193 @@
-# 🌐 Personal Portfolio Website
+# 🌐 Varun Joshi — Personal Portfolio & CV Viewer
 
-> **CodSoft Web Development Internship — Task 1**
+[![GitHub repo](https://img.shields.io/badge/GitHub-portfolio--website-181717?style=flat&logo=github)](https://github.com/VarunJoshi591/portfolio-website)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Vercel](https://img.shields.io/badge/Deployment-Vercel-000000?style=flat&logo=vercel)](https://github.com/VarunJoshi591/portfolio-website)
 
-A fully responsive personal portfolio website built using **HTML** and **CSS**, showcasing my skills, projects, education, and contact information.
+A modern, responsive, and high-performance personal portfolio website and dedicated CV document viewer. Showcases software engineering projects, technical skill set, academic background, and provides a serverless backend for contact form handling.
 
 ---
 
 ## 👤 About Me
 
-**Varun Joshi**
-M.Sc. Computer Science Student | Aspiring Full-Stack Developer
-📍 Nashik, Maharashtra, India
-📧 joshivarun089@gmail.com
-
----
-
-## 🔗 Live Demo & Repository
-
-| Resource | Link |
-|---|---|
-| 🔗 GitHub Repository | [portfolio-website](https://github.com/VarunJoshi591/portfolio-website) |
-| 💼 CodSoft Internship Repo | [CODSOFT / Task 1](https://github.com/VarunJoshi591/CODSOFT/tree/main/Task%201) |
-| 👔 LinkedIn | [varun-joshi-287990306](https://www.linkedin.com/in/varun-joshi-287990306/) |
-
----
-
-## 📁 Project Structure
-
-```
-Task 1/
-├── index.html               # Main HTML file
-├── assets/
-│   ├── css/
-│   │   └── style.css        # All styles and layout
-│   ├── images/
-│   │   ├── profile.jpg      # Profile photo
-│   │   ├── project1.jpg     # Portfolio Website screenshot
-│   │   ├── project2.jpg     # Landing Page screenshot
-│   │   └── project3.jpg     # Calculator App screenshot
-│   └── resume/
-│       └── Varun_Joshi_Resume.pdf
-├── README.md
-└── .gitignore
-```
+**Varun Joshi**  
+M.Sc. Computer Science Student | Aspiring Full-Stack Software Engineer  
+📍 **Location:** Pune, Maharashtra, India  
+📧 **Email:** [joshivarun089@gmail.com](mailto:joshivarun089@gmail.com)  
+💼 **LinkedIn:** [varun-joshi-287990306](https://www.linkedin.com/in/varun-joshi-287990306/)  
+🐙 **GitHub:** [@VarunJoshi591](https://github.com/VarunJoshi591)  
 
 ---
 
 ## ✨ Features
 
-- ✅ **Responsive Navigation Bar** with smooth section links
-- ✅ **Hero Section** with profile photo and introduction
-- ✅ **About Me** section with Education card and Quick Info card
-- ✅ **Technical Skills** section with animated progress bars
-- ✅ **Projects** section showcasing 3 real projects with screenshots
-- ✅ **Resume** download button (PDF)
-- ✅ **Contact Me** section with GitHub & LinkedIn buttons
-- ✅ **Footer** with copyright
+- 📱 **Fully Responsive Layout:** Optimized across mobile, tablet, and desktop viewports.
+- 🎨 **Modern Glassmorphism Design:** Dark theme, fluid typography, smooth section scrolling, and micro-animations.
+- 📄 **Dedicated In-Browser CV Viewer (`/cv`):** Dedicated document viewer page that opens in a new tab without interrupting portfolio browsing.
+  - **Inline Viewing:** Renders PDF directly in the browser.
+  - **Zoom & Controls:** Interactive Zoom In (`+`), Zoom Out (`-`), Reset (`100%`), and Fullscreen (`⛶`) toggles.
+  - **Quick Actions:** Direct Download CV (`⬇`) and Open Raw PDF (`↗`) buttons.
+  - **Mobile Fallback:** Clean fallback UI for devices/browsers restricting inline PDF embedding.
+- 🛠️ **Technical Skills Grid:** Interactive grid showing HTML, CSS, JavaScript, Git/GitHub, C, C++, DSA, and Python.
+- 💼 **Projects Showcase:** Highlighted full-stack and web development projects with GitHub code links.
+- 📩 **Serverless Contact Form:** Backend contact service powered by Node.js/Express & Nodemailer with rate limiting and input validation.
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack & Architecture
 
-| Technology | Purpose |
+| Layer | Technologies |
 |---|---|
-| HTML5 | Page structure and content |
-| CSS3 | Styling, layout, animations |
-| Git & GitHub | Version control and deployment |
+| **Frontend** | HTML5, Vanilla CSS3 (Custom Tokens & Glassmorphism), Vanilla JS (ES6+) |
+| **CV Viewer** | Custom PDF Viewport, URL Routing Rewrite (`/cv` -> `/cv.html`), CSS Transform Zoom Engine |
+| **Backend & APIs** | Node.js, Express.js, Nodemailer, CORS, Express-Validator, Helmet, Express-Rate-Limit |
+| **Serverless & Hosting**| Vercel Serverless Functions (`/api/*`), Vercel Static Hosting |
+| **Tooling & Ops** | Git, GitHub, npm |
 
 ---
 
-## 📸 Sections Overview
+## 📁 Project Structure
 
-### 🏠 Home
-Displays my name, role, and a professional profile photo.
-
-### 👤 About Me
-A brief introduction with an **Education card** (B.Sc. Computer Science, CGPA: 7.8) and a **Quick Info card** (email, location, projects count, CGPA, skill count).
-
-### ⚙️ Technical Skills
-8 skill cards with emoji icons and animated blue gradient progress bars:
-`HTML` · `CSS` · `JavaScript` · `React` · `Git & GitHub` · `C Programming` · `C++ Programming` · `Python`
-
-### 💼 Projects
-| # | Project | Description |
-|---|---|---|
-| 1 | Portfolio Website | Personal portfolio built with HTML & CSS |
-| 2 | Landing Page | Responsive landing page design |
-| 3 | Calculator App | Simple calculator using HTML & CSS |
-
-### 📞 Contact
-Full contact details with direct links to GitHub and LinkedIn profiles.
-
----
-
-## 🚀 How to Run Locally
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/VarunJoshi591/CODSOFT.git
-   ```
-
-2. **Navigate to Task 1 folder**
-   ```bash
-   cd CODSOFT/Task\ 1
-   ```
-
-3. **Open in browser**
-   ```bash
-   # Simply open index.html in any web browser
-   start index.html   # Windows
-   open index.html    # macOS
-   ```
-
-> No build tools or dependencies required — it's plain HTML & CSS! ✅
+```text
+portfolio-website/
+├── api/                      # Vercel serverless functions
+│   ├── contact.js            # Contact form submission serverless function
+│   └── health.js             # API health check serverless function
+├── assets/
+│   ├── css/                  # Custom design system & stylesheet (style.css)
+│   ├── js/                   # Main JavaScript & contact form integration (main.js)
+│   ├── images/               # Project screenshots & profile images
+│   └── resume/               # Official PDF Resume (Varun_Joshi_Resume.pdf)
+├── backend/                  # Local Express development server & microservice
+│   ├── config/               # Nodemailer SMTP transporter configuration
+│   ├── controllers/          # Contact controller business logic
+│   ├── middleware/           # Rate limiting & input validation middleware
+│   ├── routes/               # Express API routes
+│   ├── utils/                # Styled HTML email templates
+│   └── server.js             # Express API server entry point
+├── cv.html                   # Dedicated CV Document Viewer page (/cv)
+├── index.html                # Main Portfolio Homepage
+├── vercel.json               # Vercel routing & serverless rewrites
+├── package.json              # Root dependencies & npm scripts
+└── README.md                 # Project documentation
+```
 
 ---
 
-## 📚 What I Learned
+## 📄 CV Document Viewer (`/cv`)
 
-- Structuring a complete multi-section webpage with semantic HTML
-- Creating responsive layouts using CSS Flexbox
-- Styling with CSS animations and transitions
-- Organizing project files into a clean folder structure
-- Version control with Git and GitHub
-- Writing professional documentation (this README!)
+The CV Viewer (`cv.html`) provides recruiters with a direct document viewing experience:
+
+- **Route:** `/cv` (rewritten via `vercel.json` to `/cv.html`)
+- **Structure:**
+  - **Header Left:** `← Back to Portfolio` button
+  - **Header Center:** `👁️ Varun Joshi — Curriculum Vitae` title
+  - **Header Right Toolbar:** Zoom controls (`+` / `-` / `100%`), Fullscreen button, `Open Raw PDF`, and `Download CV`
+  - **Main Viewport:** Full-bleed embedded PDF container with CSS transform scale zoom engine and fallback error card
 
 ---
 
-## 🏆 Internship Details
+## 📡 Backend API Documentation
 
-| Detail | Info |
+### `POST /api/contact`
+Send a contact message.
+
+**Request Payload:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "subject": "Job Opportunity",
+  "message": "Hi Varun, let's discuss a full-stack role!"
+}
+```
+
+**Responses:**
+- `200 OK`: `{"success": true, "message": "Email sent successfully."}`
+- `422 Unprocessable Entity`: Input validation errors.
+- `429 Too Many Requests`: Rate limit exceeded (5 requests per 15 mins).
+
+### `GET /api/health`
+Health check endpoint returning system status and uptime.
+
+---
+
+## 🔒 Security Features
+
+| Feature | Implementation |
 |---|---|
-| **Organization** | CodSoft |
-| **Domain** | Web Development |
-| **Task** | Task 1 — Personal Portfolio Website |
-| **Duration** | July 2026 |
+| **Helmet** | Sets secure HTTP headers (CSP, HSTS, X-Frame-Options) |
+| **CORS** | Restricts API access to allowed origins |
+| **Rate Limiting** | Global: 100 req/15 min • Contact: 5 req/15 min per IP |
+| **Input Validation** | express-validator checks all fields |
+| **Input Sanitization** | Trims whitespace and escapes HTML entities |
 
 ---
 
-## 📬 Contact Me
+## 🚀 Getting Started
 
-Feel free to reach out!
+### Prerequisites
 
-- 📧 **Email:** joshivarun089@gmail.com
-- 📱 **Phone:** +91 9975486981
-- 💼 **LinkedIn:** [varun-joshi-287990306](https://www.linkedin.com/in/varun-joshi-287990306/)
-- 🐙 **GitHub:** [VarunJoshi591](https://github.com/VarunJoshi591)
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [npm](https://www.npmjs.com/)
+
+### Local Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/VarunJoshi591/portfolio-website.git
+   cd portfolio-website
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables (Optional for local email testing):**
+   Create a `.env` file in the root or `backend/` directory:
+   ```env
+   PORT=5000
+   EMAIL_USER=joshivarun089@gmail.com
+   EMAIL_PASS=your_gmail_app_password
+   FRONTEND_URL=http://localhost:5500,http://127.0.0.1:5500
+   ```
+
+4. **Start local development server:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in Browser:**
+   - Homepage: `http://localhost:5000` (or open `index.html`)
+   - CV Viewer: `http://localhost:5000/cv.html`
 
 ---
 
-<p align="center">Made with ❤️ by <strong>Varun Joshi</strong> | CodSoft Internship 2026</p>
+## 🔑 Gmail App Password Setup
+
+Google requires a **Gmail App Password** for SMTP dispatch:
+1. Go to [Google Account Security](https://myaccount.google.com/security).
+2. Enable **2-Step Verification**.
+3. Go to [App Passwords](https://myaccount.google.com/apppasswords).
+4. Create an App Password for **Mail**.
+5. Copy the 16-character code into your `.env` as `EMAIL_PASS` (without spaces).
+
+---
+
+## 🌐 Deployment
+
+The repository is pre-configured for **Vercel**:
+- `index.html` and `cv.html` are served statically.
+- `/cv` rewrites automatically to `/cv.html`.
+- `/api/contact` and `/api/health` execute as serverless Node.js functions.
+
+---
+
+## 📜 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<p align="center">Designed & Developed with ❤️ by <strong>Varun Joshi</strong></p>
