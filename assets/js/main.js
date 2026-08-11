@@ -83,6 +83,70 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* --- 6. CV Viewer Modal --- */
+    const viewCvBtn = document.getElementById('viewCvBtn');
+    const cvModal = document.getElementById('cvModal');
+    const cvModalClose = document.getElementById('cvModalClose');
+    const cvIframe = document.getElementById('cvIframe');
+    const cvFallback = document.getElementById('cvFallback');
+    const CV_PATH = 'assets/resume/Varun_Joshi_Resume.pdf';
+
+    function openCvModal() {
+        if (!cvModal) return;
+        // Lazy-load the PDF only when the modal opens
+        if (cvIframe && !cvIframe.src.includes(CV_PATH)) {
+            cvIframe.src = CV_PATH;
+        }
+        cvModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        // Detect if the browser can't render PDFs (mostly mobile)
+        if (cvIframe) {
+            cvIframe.onerror = showFallback;
+            // On mobile browsers, iframe PDF rendering often fails silently
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            if (isMobile && cvFallback) {
+                cvIframe.style.display = 'none';
+                cvFallback.style.display = 'flex';
+            }
+        }
+    }
+
+    function closeCvModal() {
+        if (!cvModal) return;
+        cvModal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function showFallback() {
+        if (cvIframe) cvIframe.style.display = 'none';
+        if (cvFallback) cvFallback.style.display = 'flex';
+    }
+
+    if (viewCvBtn) {
+        viewCvBtn.addEventListener('click', openCvModal);
+    }
+
+    if (cvModalClose) {
+        cvModalClose.addEventListener('click', closeCvModal);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && cvModal && cvModal.classList.contains('open')) {
+            closeCvModal();
+        }
+    });
+
+    // Close on backdrop click (clicking outside the header/body content area)
+    if (cvModal) {
+        cvModal.addEventListener('click', (e) => {
+            if (e.target === cvModal) {
+                closeCvModal();
+            }
+        });
+    }
+
     /* --- 5. Contact Form — Backend Integration --- */
     // Dynamically choose API endpoint:
     // Uses http://localhost:5000/api/contact when running locally,

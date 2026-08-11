@@ -746,13 +746,17 @@ img {
 .resume-box {
     max-width: 900px;
     margin: 0 auto;
-    padding: 48px;
-    text-align: center;
     border-radius: var(--radius-lg);
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
     position: relative;
     overflow: hidden;
+    transition: var(--transition-normal);
+}
+
+.resume-box:hover {
+    border-color: var(--glass-border-hover);
+    box-shadow: 0 15px 40px rgba(56, 189, 248, 0.12);
 }
 
 .resume-box::before {
@@ -765,10 +769,17 @@ img {
     background: var(--gradient-primary);
 }
 
+.resume-box-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 40px 48px;
+}
+
 .resume-icon-badge {
     width: 70px;
     height: 70px;
-    border-radius: 50%;
+    border-radius: var(--radius-md);
     background: rgba(56, 189, 248, 0.1);
     border: 1px solid rgba(56, 189, 248, 0.3);
     color: var(--primary-cyan);
@@ -776,20 +787,218 @@ img {
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    margin: 0 auto 24px;
+    flex-shrink: 0;
+    transition: var(--transition-normal);
 }
 
-.resume-box h3 {
-    font-size: 1.75rem;
+.resume-box:hover .resume-icon-badge {
+    background: rgba(56, 189, 248, 0.18);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+.resume-text-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.resume-text-content h3 {
+    font-size: 1.5rem;
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
+    color: var(--text-main);
 }
 
-.resume-box p {
+.resume-text-content p {
     color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.resume-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.btn-cv-view {
+    font-size: 1rem;
+    padding: 14px 32px;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.35);
+}
+
+.btn-cv-view:hover {
+    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+    transform: translateY(-3px);
+}
+
+.btn-cv-download {
+    font-size: 1rem;
+    padding: 14px 24px;
+}
+
+/* Resume Feature Chips */
+.resume-features {
+    display: flex;
+    gap: 12px;
+    padding: 16px 48px 24px;
+    flex-wrap: wrap;
+}
+
+.resume-feature-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.resume-feature-chip i {
+    font-size: 0.75rem;
+    color: var(--primary-cyan);
+    opacity: 0.7;
+}
+
+.resume-feature-chip:hover {
+    border-color: rgba(56, 189, 248, 0.3);
+    color: var(--text-muted);
+    background: rgba(56, 189, 248, 0.05);
+}
+
+/* ==========================================================================
+   CV VIEWER MODAL
+   ========================================================================== */
+.cv-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(9, 13, 22, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.cv-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cv-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: rgba(15, 21, 35, 0.95);
+    border-bottom: 1px solid var(--glass-border);
+    flex-shrink: 0;
+}
+
+.cv-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
     font-size: 1.05rem;
-    max-width: 600px;
-    margin: 0 auto 32px;
+    color: var(--text-main);
+}
+
+.cv-modal-title i {
+    color: var(--primary-cyan);
+    font-size: 1.2rem;
+}
+
+.cv-modal-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cv-modal-download {
+    font-size: 0.85rem;
+}
+
+.cv-modal-close-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.cv-modal-close-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+}
+
+.cv-modal-body {
+    flex: 1;
+    padding: 20px 32px 32px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cv-modal-body iframe {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: #fff;
+}
+
+/* Fallback for browsers that can't render PDFs */
+.cv-modal-fallback {
+    position: absolute;
+    inset: 20px 32px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+}
+
+.cv-fallback-content {
+    text-align: center;
+    padding: 48px;
+}
+
+.cv-fallback-content > i {
+    font-size: 3.5rem;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    display: block;
+}
+
+.cv-fallback-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.cv-fallback-content p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 28px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ==========================================================================
@@ -1009,6 +1218,20 @@ footer {
     .contact-grid {
         grid-template-columns: 1fr;
     }
+
+    .resume-box-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .resume-actions {
+        justify-content: center;
+    }
+
+    .resume-features {
+        justify-content: center;
+    }
 }
 
 /* Tablet (Max-Width: 768px) */
@@ -1061,8 +1284,33 @@ footer {
         grid-template-columns: 1fr;
     }
     
-    .resume-box {
-        padding: 32px 20px;
+    .resume-box-inner {
+        padding: 28px 20px;
+    }
+
+    .resume-features {
+        padding: 12px 20px 20px;
+    }
+
+    .resume-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .resume-actions .btn {
+        width: 100%;
+    }
+
+    .cv-modal-header {
+        padding: 12px 16px;
+    }
+
+    .cv-modal-body {
+        padding: 12px 16px 16px;
+    }
+
+    .cv-modal-title span {
+        display: none;
     }
 }
 
