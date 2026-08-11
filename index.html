@@ -66,9 +66,9 @@
                             <a href="#projects" class="btn btn-primary">
                                 <i class="fa-solid fa-code"></i> Explore Projects
                             </a>
-                            <button onclick="document.getElementById('viewCvBtn').click()" class="btn btn-secondary">
+                            <a href="cv.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
                                 <i class="fa-solid fa-eye"></i> View My CV
-                            </button>
+                            </a>
                             <a href="#contact" class="btn btn-secondary">
                                 <i class="fa-solid fa-paper-plane"></i> Contact Me
                             </a>
@@ -354,9 +354,9 @@
                             <p>Full-Stack Developer · M.Sc. Computer Science · Pune, India</p>
                         </div>
                         <div class="resume-actions">
-                            <button id="viewCvBtn" class="btn btn-primary btn-cv-view" aria-label="View CV in browser">
+                            <a href="cv.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-cv-view" aria-label="View CV in browser">
                                 <i class="fa-solid fa-eye"></i> View My CV
-                            </button>
+                            </a>
                             <a href="assets/resume/Varun_Joshi_Resume.pdf" download class="btn btn-secondary btn-cv-download" aria-label="Download CV as PDF">
                                 <i class="fa-solid fa-download"></i> Download CV
                             </a>
@@ -380,37 +380,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- CV Viewer Modal Overlay -->
-        <div id="cvModal" class="cv-modal" role="dialog" aria-modal="true" aria-label="CV Viewer">
-            <div class="cv-modal-header">
-                <div class="cv-modal-title">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span>Varun Joshi — Curriculum Vitae</span>
-                </div>
-                <div class="cv-modal-controls">
-                    <a href="assets/resume/Varun_Joshi_Resume.pdf" download class="btn btn-secondary btn-sm cv-modal-download" aria-label="Download CV">
-                        <i class="fa-solid fa-download"></i> Download
-                    </a>
-                    <button id="cvModalClose" class="cv-modal-close-btn" aria-label="Close CV Viewer">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="cv-modal-body">
-                <iframe id="cvIframe" src="" title="Varun Joshi Resume PDF"></iframe>
-                <div class="cv-modal-fallback" id="cvFallback" style="display:none;">
-                    <div class="cv-fallback-content">
-                        <i class="fa-solid fa-file-pdf"></i>
-                        <h3>Unable to display PDF in browser</h3>
-                        <p>Your browser doesn't support inline PDF viewing. Please download the file instead.</p>
-                        <a href="assets/resume/Varun_Joshi_Resume.pdf" download class="btn btn-primary">
-                            <i class="fa-solid fa-download"></i> Download CV (PDF)
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Contact Section -->
         <section id="contact">
