@@ -126,14 +126,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(payload),
                 });
 
-                const data = await response.json();
+                let data;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    data = await response.json();
+                } else {
+                    const text = await response.text();
+                    data = { success: false, message: `Server error (${response.status}): ${text || 'Invalid server response'}` };
+                }
 
                 if (data.success) {
                     // ✅ Success
                     alert(`✅ Thank you, ${payload.name}! Your message has been sent successfully. I will get back to you soon.`);
                     contactForm.reset();
                 } else if (response.status === 422 && data.errors) {
-                    // ⚠️ Validation errors — show the first one
+                    // ⚠️ Validation errors
                     const messages = data.errors.map(err => `• ${err.message}`).join('\n');
                     alert(`⚠️ Validation Error:\n${messages}`);
                 } else if (response.status === 429) {

@@ -23,14 +23,17 @@ const app = express();
 
 // Security & Parsing Middleware
 app.use(helmet());
-app.use(
-  cors({
-    origin: true,
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true,
-  })
-);
+
+// Enable CORS for all origins & handles OPTIONS preflights
+const corsOptions = {
+  origin: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
@@ -38,9 +41,28 @@ app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 // Trust Vercel proxy headers for rate limiting IP detection
 app.set('trust proxy', 1);
 
-// Mount Contact Routes
+// Mount Contact Routes at root and subpath variations so Vercel rewrites or direct invocations match
+app.use('/', contactRoutes);
 app.use('/api/contact', contactRoutes);
-app.use('/contact', contactRoutes);
+app.use('/api/contact.js', contactRoutes);
+
+// Fallback JSON 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.method} ${req.originalUrl} not found.`,
+  });
+});
+
+// Fallback JSON Error handler
+app.use((err, req, res, next) => {
+  console.error('❌ Serverless Contact API Error:', err.message);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal server error in Contact API.',
+  });
+});
 
 // Export for Vercel Serverless Function
 module.exports = app;
+
