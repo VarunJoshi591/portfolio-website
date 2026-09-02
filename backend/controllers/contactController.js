@@ -3,10 +3,11 @@
 // ================================================================
 // Handles the core workflow when a contact form is submitted:
 //   1. Extract validated/sanitized fields from the request body.
-//   2. Capture metadata (IP address, User-Agent, timestamp).
-//   3. Send a notification email TO the portfolio owner.
-//   4. Send a confirmation email TO the person who wrote in.
-//   5. Return a JSON success/failure response.
+//   2. Send a notification email TO the portfolio owner.
+//   3. Return a JSON success/failure response.
+//
+// Privacy: IP and User-Agent are NOT collected or stored here.
+// Rate limiting uses IP internally via its own middleware.
 //
 // All email sending is done with async/await and wrapped in
 // try/catch for robust error handling.
@@ -35,24 +36,15 @@ const sendContactEmail = async (req, res) => {
     }
 
     // ----------------------------------------------------------
-    // Capture request metadata for logging & email template
+    // Log submission (privacy-safe: no IP or User-Agent)
     // ----------------------------------------------------------
-    const ip =
-      req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
-      req.socket?.remoteAddress ||
-      'Unknown';
-
-    const userAgent = req.headers['user-agent'] || 'Unknown';
     const timestamp = new Date().toISOString();
 
-    // Log the submission to the console (useful for debugging and auditing)
     console.log('─────────────────────────────────────────');
     console.log('📩  New Contact Form Submission');
     console.log(`    Name      : ${name}`);
     console.log(`    Email     : ${email}`);
     console.log(`    Subject   : ${subject}`);
-    console.log(`    IP        : ${ip}`);
-    console.log(`    UA        : ${userAgent}`);
     console.log(`    Timestamp : ${timestamp}`);
     console.log('─────────────────────────────────────────');
 
@@ -65,7 +57,7 @@ const sendContactEmail = async (req, res) => {
       to: process.env.EMAIL_USER,
       replyTo: email, // Raw validated email for direct replies
       subject: `New Portfolio Contact: ${subject}`,
-      html: notificationTemplate({ name, email, subject, message, ip, userAgent }),
+      html: notificationTemplate({ name, email, subject, message }),
     };
 
     // Dispatch notification email

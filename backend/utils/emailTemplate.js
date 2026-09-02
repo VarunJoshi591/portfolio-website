@@ -3,9 +3,9 @@
 // ================================================================
 // Generates beautifully styled HTML email bodies for:
 //   1. The notification email sent TO the portfolio owner (you).
-//   2. The auto-reply confirmation email sent TO the sender.
 //
-// Both templates include a timestamp so every email is traceable.
+// Privacy: IP address and User-Agent are not included.
+// Templates include a timestamp so every email is traceable.
 // ================================================================
 
 /**
@@ -42,17 +42,13 @@ const formatTimestamp = () => {
  * @param {string} data.email   — Sender's email
  * @param {string} data.subject — Message subject
  * @param {string} data.message — Message body
- * @param {string} data.ip      — Sender's IP address
- * @param {string} data.userAgent — Sender's browser User-Agent
  * @returns {string} Complete HTML string
  */
-const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) => {
+const notificationTemplate = ({ name, email, subject, message }) => {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeSubject = escapeHtml(subject);
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br />');
-  const safeIp = escapeHtml(ip);
-  const safeUserAgent = escapeHtml(userAgent);
 
   return `
   <!DOCTYPE html>
@@ -126,13 +122,11 @@ const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) 
                   </tr>
                 </table>
 
-                <!-- Metadata: Timestamp, IP, User-Agent -->
+                <!-- Metadata: Timestamp -->
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="padding:16px 20px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
-                      <p style="margin:0 0 6px;font-size:12px;color:#888;">🕐 <strong>Timestamp:</strong> ${formatTimestamp()}</p>
-                      <p style="margin:0 0 6px;font-size:12px;color:#888;">🌐 <strong>IP Address:</strong> ${safeIp || 'Unknown'}</p>
-                      <p style="margin:0;font-size:12px;color:#888;">💻 <strong>User-Agent:</strong> ${safeUserAgent || 'Unknown'}</p>
+                      <p style="margin:0;font-size:12px;color:#888;">🕐 <strong>Timestamp:</strong> ${formatTimestamp()}</p>
                     </td>
                   </tr>
                 </table>
