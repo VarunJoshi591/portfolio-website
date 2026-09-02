@@ -9,6 +9,19 @@
 // ================================================================
 
 /**
+ * Helper to HTML-escape user-controlled content before rendering in HTML templates.
+ */
+const escapeHtml = (str) => {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
+/**
  * Format a Date object into a human-readable string.
  * Example: "02 Aug 2026, 01:32 AM IST"
  */
@@ -34,6 +47,13 @@ const formatTimestamp = () => {
  * @returns {string} Complete HTML string
  */
 const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) => {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeMessage = escapeHtml(message).replace(/\n/g, '<br />');
+  const safeIp = escapeHtml(ip);
+  const safeUserAgent = escapeHtml(userAgent);
+
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -69,7 +89,7 @@ const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) 
                   <tr>
                     <td style="padding:16px 20px;background:rgba(102,126,234,0.08);border-left:4px solid #667eea;border-radius:8px;">
                       <p style="margin:0 0 4px;font-size:12px;color:#667eea;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Name</p>
-                      <p style="margin:0;font-size:16px;color:#e0e0e0;font-weight:500;">${name}</p>
+                      <p style="margin:0;font-size:16px;color:#e0e0e0;font-weight:500;">${safeName}</p>
                     </td>
                   </tr>
                 </table>
@@ -80,7 +100,7 @@ const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) 
                     <td style="padding:16px 20px;background:rgba(102,126,234,0.08);border-left:4px solid #667eea;border-radius:8px;">
                       <p style="margin:0 0 4px;font-size:12px;color:#667eea;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Email</p>
                       <p style="margin:0;font-size:16px;color:#e0e0e0;">
-                        <a href="mailto:${email}" style="color:#667eea;text-decoration:none;">${email}</a>
+                        <a href="mailto:${safeEmail}" style="color:#667eea;text-decoration:none;">${safeEmail}</a>
                       </p>
                     </td>
                   </tr>
@@ -91,7 +111,7 @@ const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) 
                   <tr>
                     <td style="padding:16px 20px;background:rgba(102,126,234,0.08);border-left:4px solid #667eea;border-radius:8px;">
                       <p style="margin:0 0 4px;font-size:12px;color:#667eea;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Subject</p>
-                      <p style="margin:0;font-size:16px;color:#e0e0e0;font-weight:500;">${subject}</p>
+                      <p style="margin:0;font-size:16px;color:#e0e0e0;font-weight:500;">${safeSubject}</p>
                     </td>
                   </tr>
                 </table>
@@ -101,7 +121,7 @@ const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) 
                   <tr>
                     <td style="padding:20px;background:rgba(102,126,234,0.05);border:1px solid rgba(102,126,234,0.15);border-radius:8px;">
                       <p style="margin:0 0 8px;font-size:12px;color:#667eea;text-transform:uppercase;letter-spacing:1px;font-weight:600;">Message</p>
-                      <p style="margin:0;font-size:15px;color:#d0d0d0;line-height:1.7;white-space:pre-wrap;">${message}</p>
+                      <p style="margin:0;font-size:15px;color:#d0d0d0;line-height:1.7;white-space:pre-wrap;">${safeMessage}</p>
                     </td>
                   </tr>
                 </table>
@@ -111,8 +131,8 @@ const notificationTemplate = ({ name, email, subject, message, ip, userAgent }) 
                   <tr>
                     <td style="padding:16px 20px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
                       <p style="margin:0 0 6px;font-size:12px;color:#888;">🕐 <strong>Timestamp:</strong> ${formatTimestamp()}</p>
-                      <p style="margin:0 0 6px;font-size:12px;color:#888;">🌐 <strong>IP Address:</strong> ${ip || 'Unknown'}</p>
-                      <p style="margin:0;font-size:12px;color:#888;">💻 <strong>User-Agent:</strong> ${userAgent || 'Unknown'}</p>
+                      <p style="margin:0 0 6px;font-size:12px;color:#888;">🌐 <strong>IP Address:</strong> ${safeIp || 'Unknown'}</p>
+                      <p style="margin:0;font-size:12px;color:#888;">💻 <strong>User-Agent:</strong> ${safeUserAgent || 'Unknown'}</p>
                     </td>
                   </tr>
                 </table>

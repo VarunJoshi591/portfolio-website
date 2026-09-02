@@ -1041,7 +1041,7 @@ img {
 
 /* Fallback Styling */
 .cv-fallback-wrapper {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -1481,4 +1481,13 @@ footer {
     .contact-form {
         padding: 20px;
     }
+}
+
+/* Security Compliance Utilities */
+.hp-field-container {
+    display: none;
+}
+
+.btn-full-width {
+    width: 100%;
 }

@@ -17,6 +17,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
+const { corsOptions } = require('../backend/config/cors');
 const contactRoutes = require('../backend/routes/contactRoutes');
 
 const app = express();
@@ -24,14 +25,7 @@ const app = express();
 // Security & Parsing Middleware
 app.use(helmet());
 
-// Enable CORS for all origins & handles OPTIONS preflights
-const corsOptions = {
-  origin: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-};
-
+// Enforce strict CORS allowlist & handle OPTIONS preflights
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
@@ -56,10 +50,16 @@ app.use((req, res) => {
 
 // Fallback JSON Error handler
 app.use((err, req, res, next) => {
-  console.error('❌ Serverless Contact API Error:', err.message);
+  if (err.message && err.message.includes('CORS')) {
+    return res.status(403).json({
+      success: false,
+      message: err.message,
+    });
+  }
+  console.error('❌ Serverless Contact API Error:', err);
   res.status(err.status || 500).json({
     success: false,
-    message: err.message || 'Internal server error in Contact API.',
+    message: 'Internal server error in Contact API. Please try again later.',
   });
 });
 

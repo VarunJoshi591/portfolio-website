@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 email: document.getElementById('formEmail').value.trim(),
                 subject: document.getElementById('formSubject').value.trim(),
                 message: document.getElementById('formMessage').value.trim(),
+                hp_title: document.getElementById('hpTitle') ? document.getElementById('hpTitle').value : '',
             };
 
             // --- Quick client-side guard ---

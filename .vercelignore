@@ -1,0 +1,14 @@
+# Internal documentation & development notes
+work.md
+README.md
+LICENSE
+
+# OS and editor temporary files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Log files
+*.log
+npm-debug.log*

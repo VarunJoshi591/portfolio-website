@@ -12,7 +12,9 @@
     <meta name="author" content="Varun Joshi">
 
     <!-- FontAwesome Icons CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -446,6 +448,11 @@
 
                     <!-- Contact Form -->
                     <form id="contactForm" class="contact-form">
+                        <!-- Honeypot Field (Invisible to human users, traps spam bots) -->
+                        <div class="hp-field-container" aria-hidden="true">
+                            <label for="hpTitle">Leave this field blank</label>
+                            <input type="text" id="hpTitle" name="hp_title" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="form-group">
                             <label for="formName">Your Name</label>
                             <input type="text" id="formName" class="form-control" placeholder="Enter your full name"
@@ -466,7 +473,7 @@
                             <textarea id="formMessage" class="form-control" placeholder="Write your message here..."
                                 required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <button type="submit" class="btn btn-primary btn-full-width">
                             <i class="fa-solid fa-paper-plane"></i> Send Message
                         </button>
                     </form>

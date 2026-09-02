@@ -32,6 +32,7 @@ const morgan = require('morgan');
 const { globalLimiter } = require('./middleware/rateLimiter');
 const contactRoutes = require('./routes/contactRoutes');
 const { verifyTransporter } = require('./config/mail');
+const { corsOptions } = require('./config/cors');
 
 // ------------------------------------------------------------------
 // 4. Initialise Express app
@@ -46,31 +47,9 @@ const PORT = process.env.PORT || 5000;
 // Helmet — sets various HTTP headers to protect against common attacks
 app.use(helmet());
 
-// CORS — allow requests from the frontend origin(s)
-const allowedOrigins = process.env.FRONTEND_URL
-  ? process.env.FRONTEND_URL.split(',').map((url) => url.trim())
-  : ['http://localhost:5500'];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (mobile apps, curl, Postman, etc.)
-      // or origins in FRONTEND_URL, or any *.vercel.app domain
-      if (
-        !origin ||
-        allowedOrigins.includes(origin) ||
-        origin.endsWith('.vercel.app')
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error(`CORS policy: Origin ${origin} is not allowed.`));
-      }
-    },
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true,
-  })
-);
+// CORS — strict allowlist matching
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // ------------------------------------------------------------------
 // 6. Global middleware

@@ -18,24 +18,28 @@ const { body, validationResult } = require('express-validator');
  */
 const contactValidationRules = [
   body('name')
+    .isString().withMessage('Name must be a text string.')
     .trim()
     .notEmpty().withMessage('Name is required.')
     .isLength({ min: 2, max: 100 }).withMessage('Name must be between 2 and 100 characters.')
-    .escape(),
+    .custom((val) => !/[\r\n]/.test(val)).withMessage('Name cannot contain newline or line break characters.'),
 
   body('email')
+    .isString().withMessage('Email must be a text string.')
     .trim()
     .notEmpty().withMessage('Email is required.')
     .isEmail().withMessage('Please provide a valid email address.')
     .normalizeEmail(),
 
   body('subject')
+    .isString().withMessage('Subject must be a text string.')
     .trim()
     .notEmpty().withMessage('Subject is required.')
     .isLength({ min: 2, max: 200 }).withMessage('Subject must be between 2 and 200 characters.')
-    .escape(),
+    .custom((val) => !/[\r\n]/.test(val)).withMessage('Subject cannot contain newline or line break characters.'),
 
   body('message')
+    .isString().withMessage('Message must be a text string.')
     .trim()
     .notEmpty().withMessage('Message is required.')
     .isLength({ min: 10, max: 5000 }).withMessage('Message must be between 10 and 5000 characters.'),

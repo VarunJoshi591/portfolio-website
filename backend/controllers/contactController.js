@@ -13,7 +13,7 @@
 // ================================================================
 
 const { transporter } = require('../config/mail');
-const { notificationTemplate, confirmationTemplate } = require('../utils/emailTemplate');
+const { notificationTemplate } = require('../utils/emailTemplate');
 
 /**
  * POST /api/contact
@@ -30,7 +30,7 @@ const sendContactEmail = async (req, res) => {
       console.error('❌ EMAIL_USER or EMAIL_PASS environment variables are missing!');
       return res.status(500).json({
         success: false,
-        message: 'Server email credentials are not configured. Set EMAIL_USER and EMAIL_PASS in your environment.',
+        message: 'Unable to send email due to a server configuration issue. Please try again later.',
       });
     }
 
@@ -57,35 +57,21 @@ const sendContactEmail = async (req, res) => {
     console.log('─────────────────────────────────────────');
 
     // ----------------------------------------------------------
-    // 1. Notification email → sent TO the portfolio owner
+    // Notification email → sent ONLY to the portfolio owner
+    // (Auto-reply removed to prevent arbitrary email relay abuse)
     // ----------------------------------------------------------
     const notificationMailOptions = {
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
-      replyTo: email, // So you can hit "Reply" and it goes to the sender
+      replyTo: email, // Raw validated email for direct replies
       subject: `New Portfolio Contact: ${subject}`,
       html: notificationTemplate({ name, email, subject, message, ip, userAgent }),
     };
 
-    // ----------------------------------------------------------
-    // 2. Confirmation email → auto-reply sent TO the sender
-    // ----------------------------------------------------------
-    const confirmationMailOptions = {
-      from: `"Varun Joshi" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: 'Thanks for contacting Varun Joshi',
-      html: confirmationTemplate({ name }),
-    };
+    // Dispatch notification email
+    await transporter.sendMail(notificationMailOptions);
 
-    // ----------------------------------------------------------
-    // Send both emails concurrently for speed
-    // ----------------------------------------------------------
-    await Promise.all([
-      transporter.sendMail(notificationMailOptions),
-      transporter.sendMail(confirmationMailOptions),
-    ]);
-
-    console.log('✅  Both emails sent successfully.');
+    console.log('✅ Notification email sent successfully.');
 
     // ----------------------------------------------------------
     // Success response
@@ -97,9 +83,9 @@ const sendContactEmail = async (req, res) => {
 
   } catch (error) {
     // ----------------------------------------------------------
-    // Error handling
+    // Error handling (full log server-side, generic msg client-side)
     // ----------------------------------------------------------
-    console.error('❌  Email sending failed:', error.message);
+    console.error('❌ Email sending failed:', error);
 
     return res.status(500).json({
       success: false,
