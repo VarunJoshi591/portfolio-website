@@ -81,12 +81,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Mobile PDF fallback detection
+    // Mobile PDF fallback handling
+    // Mobile browsers (specifically Android Chrome) do not reliably render PDFs inside embedded iframes.
+    // Immediately disable the subframe and activate the fallback UI without waiting for an iframe error event.
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if (isMobile && cvPdfFrame && cvFallbackContainer) {
-        cvPdfFrame.addEventListener('error', () => {
+    if (isMobile) {
+        if (cvPdfFrame) {
+            cvPdfFrame.src = '';
+            cvPdfFrame.removeAttribute('src');
+        }
+        if (cvScaleContainer) {
             cvScaleContainer.style.display = 'none';
+        }
+        if (cvFallbackContainer) {
             cvFallbackContainer.style.display = 'flex';
-        });
+        }
     }
 });
