@@ -87,7 +87,6 @@ app.get('/api/health', (req, res) => {
     success: true,
     message: 'Server is healthy and running.',
     timestamp: new Date().toISOString(),
-    uptime: `${Math.floor(process.uptime())} seconds`,
   });
 });
 
@@ -97,7 +96,7 @@ app.get('/api/health', (req, res) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: `Route ${req.method} ${req.originalUrl} not found.`,
+    message: 'Not found.',
   });
 });
 
@@ -108,19 +107,19 @@ app.use((req, res) => {
 // signature (err, req, res, next).
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  console.error('💥  Unhandled Error:', err.message);
+  console.error('💥  Unhandled Error:', err.message || err);
 
   // CORS errors
   if (err.message && err.message.includes('CORS')) {
     return res.status(403).json({
       success: false,
-      message: err.message,
+      message: 'Forbidden.',
     });
   }
 
   res.status(err.status || 500).json({
     success: false,
-    message: err.message || 'Internal server error.',
+    message: 'Internal server error.',
   });
 });
 

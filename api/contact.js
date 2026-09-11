@@ -44,7 +44,7 @@ app.use('/api/contact.js', contactRoutes);
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: `Route ${req.method} ${req.originalUrl} not found.`,
+    message: 'Not found.',
   });
 });
 
@@ -53,13 +53,13 @@ app.use((err, req, res, next) => {
   if (err.message && err.message.includes('CORS')) {
     return res.status(403).json({
       success: false,
-      message: err.message,
+      message: 'Forbidden.',
     });
   }
   console.error('❌ Serverless Contact API Error:', err);
   res.status(err.status || 500).json({
     success: false,
-    message: 'Internal server error in Contact API. Please try again later.',
+    message: 'Internal server error.',
   });
 });
 

@@ -43,7 +43,7 @@ router.all('/', (req, res) => {
   res.setHeader('Allow', 'POST, OPTIONS');
   return res.status(405).json({
     success: false,
-    message: `Method ${req.method} Not Allowed. Only POST requests are accepted.`,
+    message: 'Method Not Allowed.',
   });
 });
 
